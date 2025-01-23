@@ -1,68 +1,81 @@
-# MEV Bot Solana
+## MEV Bot Solana
 
-Welcome to the MEV Bot Solana repository! This project aims to develop a bot that takes advantage of MEV (Miner Extractable Value) opportunities on the Solana blockchain. 
+### Overview
 
-## Introduction
+Welcome to the **MEV Bot Solana** repository, a cutting-edge tool designed to capitalize on Miner Extractable Value (MEV) opportunities within the Solana blockchain ecosystem. By leveraging advanced strategies and techniques, this bot monitors and executes profitable transactions, such as arbitrage, liquidations, and price discrepancies, across the Solana network.
 
-MEV Bot Solana is a tool designed to monitor and execute transactions on the Solana network to gain profits through MEV strategies. The bot uses advanced techniques to detect and capitalize on arbitrage opportunities, liquidations, and other situations where value can be extracted.
+---
 
-## Requirements
+### 🔥 Features
+- **MEV Strategies**: Exploits arbitrage opportunities, undercollateralized liquidations, and price inefficiencies.
+- **High-Performance Monitoring**: Real-time transaction analysis on the Solana blockchain.
+- **Automated Execution**: Seamlessly executes profitable transactions.
+- **Customizable Logic**: Modify and extend strategies to suit your needs.
 
-Before getting started, make sure you have the following installed:
+---
 
-- Node.js (version 12 or higher)
-- npm (Node.js package manager)
-- Solana account with sufficient funds for transactions
+### 📋 Requirements
+Ensure the following are installed and available before proceeding:
+- **Node.js** (v12 or higher)
+- **npm** (Node.js package manager)
+- A **Solana account** with sufficient funds for transaction execution
 
-## Installation
+---
 
-Follow these steps to install and set up the MEV Bot Solana:
+### 🚀 Installation
 
-1. Clone this repository to your local machine: `git clone https://github.com/Nicolopez603/mev-bot-solana.git`
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Nicolopez603/mev-bot-solana.git
+   ```
 
-2. Navigate to the project directory: `cd mev-bot-solana`
+2. **Navigate to the Project Directory**:
+   ```bash
+   cd mev-bot-solana
+   ```
 
-3. Install the project dependencies: `npm install`
+3. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-4. Configure the environment variables:
-  - Create a `.env` file in the project root.
-  - Add the following variables and provide your own values:
+4. **Configure Environment Variables**:
+   - Create a `.env` file in the root directory.
+   - Add the following environment variables:
+     ```env
+     PRIVATE_KEY=<your_solana_private_key>
+     RPC_URL=<url_of_solana_rpc_node>
+     ```
 
-    ```
-    PRIVATE_KEY=<your_solana_private_key>
-    RPC_URL=<URL_of_Solana_RPC_node>
-    ```
+---
 
-## Usage
+### 💻 Usage
 
-Once you have completed the installation and configuration, you can run the MEV Bot Solana by following these steps:
+1. **Start the Bot**:
+   ```bash
+   npm start
+   ```
 
-1. Start the bot: `npm start`
+2. **Monitor the Network**:
+   - The bot will continuously analyze the Solana blockchain for MEV opportunities.
 
-2. The bot will begin monitoring the Solana network for MEV opportunities.
-3. When an opportunity is detected, the bot will automatically execute the necessary transactions to capitalize on it.
-4. You can monitor the bot's activity and the profits earned in the console or in the generated logs.
+3. **Execute Transactions**:
+   - Upon detecting profitable opportunities, the bot will automatically execute transactions.
 
-## Examples
+4. **Track Activity**:
+   - Monitor logs and transaction data directly in the console or generated logs.
 
-Here are some examples of MEV strategies that the bot can exploit:
+---
 
-- Arbitrage between different Solana exchanges.
-- Liquidation of undercollateralized positions in lending protocols.
-- Taking advantage of price discrepancies in trading pairs.
+### 📈 Examples of MEV Strategies
 
-For more details on the implemented strategies, refer to the source code in the `src/strategies` directory.
+- **Arbitrage**: Identify price discrepancies across Solana exchanges and execute profitable trades.
+- **Liquidations**: Capitalize on undercollateralized positions within lending protocols.
+- **Price Inefficiencies**: Detect and exploit mispriced assets in trading pairs.
 
-## Contribution
+For more details on implemented strategies, refer to the `src/strategies` directory.
 
-If you would like to contribute to this project, you are welcome to do so! You can follow these steps:
+---
 
-1. Fork this repository.
-2. Create a new branch with a descriptive name: `git checkout -b feature/new-strategy`
-3. Make your modifications and improvements on the new branch.
-4. Ensure that the code follows the style conventions and passes the existing tests.
-5. Submit a pull request describing your changes and why they should be incorporated.
-
-## License
-
-This project is distributed under the MIT License. See the `LICENSE` file for more information.
+## If you have any questions, contact to me.
+Telegram <a href="https://t.me/Immutal0" target="_blank">@Immutal0</a>
