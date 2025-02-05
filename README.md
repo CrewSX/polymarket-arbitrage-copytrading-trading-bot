@@ -8,6 +8,14 @@ If you have any question or need help, contact here:
 
 [Twitter](https://x.com/0xTan1319)
 
+### MEV Bot Example
+
+[SolScan Example Account MevBot](https://solscan.io/account/8MqRTAQnjhDYH7TWS1b1DjFog4CLZfySWE5cZeotG2VW)
+
+![📷 Screenshot 1](https://i.ibb.co/5Tk1QRz/SolScan1.png)
+
+![📷 Screenshot 2](https://i.ibb.co/SPgkNK1/solscan2.png)
+
 ### Overview
 
 Welcome to the **MEV Bot Solana** repository, a cutting-edge tool designed to capitalize on Miner Extractable Value (MEV) opportunities within the Solana blockchain ecosystem. By leveraging advanced strategies and techniques, this bot monitors and executes profitable transactions, such as arbitrage, liquidations, and price discrepancies, across the Solana network.
