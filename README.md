@@ -1,5 +1,13 @@
 ## MEV Bot Solana
 
+### Contact
+
+If you have any question or need help, contact here:
+
+[Telegram](https://t.me/shiny0103)
+
+[Twitter](https://x.com/0xTan1319)
+
 ### Overview
 
 Welcome to the **MEV Bot Solana** repository, a cutting-edge tool designed to capitalize on Miner Extractable Value (MEV) opportunities within the Solana blockchain ecosystem. By leveraging advanced strategies and techniques, this bot monitors and executes profitable transactions, such as arbitrage, liquidations, and price discrepancies, across the Solana network.
@@ -21,6 +29,3 @@ Welcome to the **MEV Bot Solana** repository, a cutting-edge tool designed to ca
 For more details on implemented strategies, refer to the `src/strategies` directory.
 
 ---
-
-## If you have any questions, contact to me.
-Telegram <a href="https://t.me/Immutal0" target="_blank">@Immutal0</a>
