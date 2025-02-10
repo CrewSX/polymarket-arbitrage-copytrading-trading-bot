@@ -1,117 +1,138 @@
-use crate::dex::dex_manager::DexManager;
-use crate::models::market_conditions::MarketConditions;
-use crate::models::arbitrage_opportunity::ArbitrageOpportunity;
-use crate::strategies::strategy::Strategy;
-use crate::utils::math;
-use async_trait::async_trait;
-use solana_client::rpc_client::RpcClient;
-use solana_sdk::pubkey::Pubkey;
-use std::collections::HashMap;
+use anchor_lang::prelude::*;
+use std::{sync::Arc, collections::HashMap};
+use tokio::sync::{RwLock, mpsc};
 
-pub struct ArbitrageStrategy {
-    pub rpc_client: RpcClient,
-    pub dex_manager: DexManager,
-    pub min_profit_threshold: f64,
+// Core bot structure with latest Solana DEX integrations
+pub struct ArbitrageBot {
+    pools: Arc<RwLock<HashMap<Pubkey, PoolState>>>,
+    position_manager: Arc<PositionManager>,
+    execution_queue: mpsc::Sender<TradeInstruction>,
+    risk_monitor: Box<dyn RiskManager>,
+    dex_clients: DexClients,
 }
 
-impl ArbitrageStrategy {
-    pub fn new(rpc_client: RpcClient, dex_manager: DexManager, min_profit_threshold: f64) -> Self {
-        ArbitrageStrategy {
-            rpc_client,
-            dex_manager,
-            min_profit_threshold,
-        }
+#[derive(Clone)]
+struct DexClients {
+    raydium: RaydiumClient,
+    orca: OrcaWhirlpoolClient, 
+    jupiter: JupiterClient,
+    meteora: MeteoraClient
+}
+
+#[derive(Debug)]
+struct PoolState {
+    liquidity: u128,
+    sqrt_price: u128,
+    tick_spacing: i32,
+    fee_rate: u64,
+    token_a: Pubkey,
+    token_b: Pubkey,
+}
+
+impl ArbitrageBot {
+    pub async fn new(
+        rpc_url: &str,
+        config: BotConfig,
+    ) -> Result<Self, BotError> {
+        let pool_manager = Arc::new(RwLock::new(HashMap::new()));
+        let (tx, rx) = mpsc::channel(100);
+        
+        Ok(Self {
+            pools: pool_manager,
+            position_manager: Arc::new(PositionManager::new(config.position_limits)),
+            execution_queue: tx,
+            risk_monitor: Box::new(RiskManager::new(config.risk_params)),
+            dex_clients: DexClients::connect(rpc_url).await?,
+        })
     }
 
-    pub async fn find_arbitrage_opportunities(&self, market_conditions: &MarketConditions) -> Vec<ArbitrageOpportunity> {
-        let mut opportunities = Vec::new();
+    pub async fn run(&self) -> Result<(), BotError> {
+        let (opportunity_tx, mut opportunity_rx) = mpsc::channel(100);
+        
+        // Spawn price monitoring tasks
+        self.spawn_pool_monitors(opportunity_tx.clone());
 
-        let token_prices = market_conditions.token_prices.clone();
-        let token_pairs = self.generate_token_pairs(&token_prices);
-
-        for (token_a, token_b) in token_pairs {
-            if let Some(opportunity) = self.find_arbitrage_opportunity(token_a, token_b, &token_prices).await {
-                if opportunity.expected_profit >= self.min_profit_threshold {
-                    opportunities.push(opportunity);
-                }
+        // Main arbitrage loop
+        while let Some(opportunity) = opportunity_rx.recv().await {
+            if self.validate_opportunity(&opportunity).await? {
+                self.execute_arbitrage(opportunity).await?;
             }
         }
-
-        opportunities
+        Ok(())
     }
 
-    async fn find_arbitrage_opportunity(&self, token_a: &str, token_b: &str, token_prices: &HashMap<String, f64>) -> Option<ArbitrageOpportunity> {
-        let mut best_opportunity: Option<ArbitrageOpportunity> = None;
-
-        if let Some(price_a_b) = token_prices.get(&format!("{}/{}", token_a, token_b)) {
-            if let Some(price_b_a) = token_prices.get(&format!("{}/{}", token_b, token_a)) {
-                let forward_amount = 1.0;
-                let forward_price = price_a_b;
-                let backward_amount = forward_amount * forward_price;
-                let backward_price = price_b_a;
-
-                let forward_trade = self.dex_manager.get_best_trade_route(token_a, token_b, forward_amount).await;
-                let backward_trade = self.dex_manager.get_best_trade_route(token_b, token_a, backward_amount).await;
-
-                if let (Some(forward_trade), Some(backward_trade)) = (forward_trade, backward_trade) {
-                    let forward_amount_received = math::checked_div(forward_amount, forward_trade.price).unwrap_or(0.0);
-                    let backward_amount_received = math::checked_mul(backward_trade.received_amount, backward_price).unwrap_or(0.0);
-
-                    let expected_profit = backward_amount_received - forward_amount;
-
-                    if expected_profit > 0.0 {
-                        best_opportunity = Some(ArbitrageOpportunity {
-                            token_a: token_a.to_string(),
-                            token_b: token_b.to_string(),
-                            forward_trade,
-                            backward_trade,
-                            expected_profit,
-                        });
-                    }
-                }
-            }
-        }
-
-        best_opportunity
+    async fn validate_opportunity(
+        &self, 
+        opportunity: &ArbitrageOpportunity
+    ) -> Result<bool, BotError> {
+        // Updated validation logic for 2025 market conditions
+        let risk_check = self.risk_monitor.check_risk(opportunity);
+        let profitability = self.calculate_profit(opportunity).await?;
+        
+        Ok(risk_check && profitability > self.config.min_profit_threshold)
     }
 
-    fn generate_token_pairs(&self, token_prices: &HashMap<String, f64>) -> Vec<(String, String)> {
-        let mut pairs = Vec::new();
-
-        for (token_a, _) in token_prices {
-            for (token_b, _) in token_prices {
-                if token_a != token_b {
-                    pairs.push((token_a.clone(), token_b.clone()));
-                }
-            }
+    async fn execute_arbitrage(
+        &self,
+        opportunity: ArbitrageOpportunity
+    ) -> Result<(), BotError> {
+        // Latest MEV-aware execution strategy
+        let execution_plan = self.build_execution_plan(&opportunity)?;
+        
+        // Submit through Jito-MEV for better execution
+        if let Some(jito_client) = &self.dex_clients.jito {
+            jito_client.submit_bundle(execution_plan).await?;
+        } else {
+            self.execute_standard_path(execution_plan).await?;
         }
+        
+        Ok(())
+    }
 
-        pairs
+    async fn calculate_profit(
+        &self,
+        opportunity: &ArbitrageOpportunity
+    ) -> Result<f64, BotError> {
+        let mut total_profit = 0f64;
+        
+        // Calculate accounting for latest DEX fee structures
+        for route in &opportunity.routes {
+            let (in_amount, out_amount) = self.simulate_swap(route).await?;
+            total_profit += out_amount - in_amount;
+        }
+        
+        // Account for gas costs in profit calculation
+        total_profit -= self.estimate_gas_costs().await?;
+        
+        Ok(total_profit)
+    }
+
+    async fn simulate_swap(
+        &self,
+        route: &SwapRoute
+    ) -> Result<(f64, f64), BotError> {
+        match route.dex_type {
+            DexType::Raydium => self.dex_clients.raydium.simulate_swap(route).await,
+            DexType::Orca => self.dex_clients.orca.simulate_swap(route).await,
+            DexType::Jupiter => self.dex_clients.jupiter.simulate_swap(route).await,
+            DexType::Meteora => self.dex_clients.meteora.simulate_swap(route).await,
+        }
     }
 }
 
-#[async_trait]
-impl Strategy for ArbitrageStrategy {
-    async fn find_opportunities(&self, market_conditions: &MarketConditions) -> Vec<ArbitrageOpportunity> {
-        self.find_arbitrage_opportunities(market_conditions).await
-    }
-
-    async fn execute_opportunities(&self, opportunities: &[ArbitrageOpportunity]) {
-        for opportunity in opportunities {
-            let forward_trade = &opportunity.forward_trade;
-            let backward_trade = &opportunity.backward_trade;
-
-            let forward_result = self.dex_manager.execute_trade(forward_trade).await;
-            if forward_result.is_ok() {
-                let backward_result = self.dex_manager.execute_trade(backward_trade).await;
-                if backward_result.is_ok() {
-                    // Log successful arbitrage execution
-                } else {
-                    // Log backward trade failure
+// Latest pool monitoring implementation
+impl PoolMonitor {
+    async fn monitor_pools(
+        &self,
+        opportunity_tx: mpsc::Sender<ArbitrageOpportunity>
+    ) {
+        loop {
+            for pool in self.pools.read().await.values() {
+                if let Some(opportunity) = self.check_pool(pool).await? {
+                    opportunity_tx.send(opportunity).await?;
                 }
-            } else {
-                // Log forward trade failure
             }
+            tokio::time::sleep(Duration::from_millis(100)).await;
         }
     }
 }
