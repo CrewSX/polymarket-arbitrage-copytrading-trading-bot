@@ -1,0 +1,44 @@
+{
+  "name": "polymarket-tradingb-arbitrage-copytrading",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "redeem": "ts-node src/redeem.ts",
+    "redeem:holdings": "ts-node src/redeem-holdings.ts",
+    "balance:log": "ts-node src/balance-logger.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "polymarket",
+    "polymarket trading bot",
+    "polymarket arbitrage bot",
+    "polymarket copytrading bot",
+    "polymarket bot",
+    "prediction markets",
+    "arbitrage",
+    "copytrading",
+    "trading bot",
+    "polygon",
+    "CLOB",
+    "hedge bot",
+    "polymarket prediction market"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "Polymarket trading bot for arbitrage and copytrading. Automated Polymarket arbitrage bot and Polymarket copytrading bot for 15-min Up/Down prediction markets. Self-hosted, open source.",
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@ethersproject/wallet": "^5.8.0",
+    "@polymarket/clob-client": "^4.22.8",
+    "@polymarket/real-time-data-client": "^1.4.0",
+    "axios": "^1.7.0",
+    "chalk": "^5.6.2",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.16.0"
+  }
+}
