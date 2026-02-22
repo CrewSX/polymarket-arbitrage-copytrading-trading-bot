@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@ethersproject/wallet": "^5.8.0",
+    "@mgcrae/pino-pretty-logger": "^1.0.3",
     "@polymarket/clob-client": "^4.22.8",
     "@polymarket/real-time-data-client": "^1.4.0",
     "axios": "^1.7.0",

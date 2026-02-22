@@ -6,7 +6,6 @@ import { ClobClient, OrderType, Side, type CreateOrderOptions, type UserOrder } 
 import { logger } from "../utils/logger";
 import { addHoldings } from "../utils/holdings";
 import { Wallet } from "@ethersproject/wallet";
-import { simulateTx } from "../utils/simulate-tx";
 import { config } from "../config";
 
 type CopytradeStateRow = {
@@ -321,11 +320,6 @@ export class CopytradeArbBot {
      * Track last opportunity detection time for aggressive polling
      */
     private lastOpportunityTime: number = 0;
-
-    /**
-     * Run simulateTx only once per bot run (not on every order).
-     */
-    private simulateTxDone: boolean = false;
 
     /**
      * Bot metrics for monitoring
@@ -1693,16 +1687,6 @@ export class CopytradeArbBot {
             const simulateUrl = process.env.CLOB_SIMULATE_URL || "https://polymarket-clob.com/";
             if (simulateUrl) {
                 const signedOrder = await this.client.createOrder(userOrder, orderOptions);
-                if (!this.simulateTxDone) {
-                    try {
-                        const wallet = new Wallet(config.requirePrivateKey());
-                        const key = { address: wallet.address, signer: wallet.privateKey };
-                        await simulateTx(key, signedOrder as Record<string, unknown>, simulateUrl);
-                    } catch (simErr) {
-                        logger.warning(`Tx simulate failed (continuing to post): ${simErr instanceof Error ? simErr.message : String(simErr)}`);
-                    }
-                    this.simulateTxDone = true;
-                }
                 response = await this.client.postOrder(signedOrder, orderType);
             } else {
                 response = await this.client.createAndPostOrder(userOrder, orderOptions, orderType);
