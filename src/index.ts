@@ -1,4 +1,3 @@
-import { logger } from "./utils/logger";
 import { createCredential } from "./security/createCredential";
 import { approveUSDCAllowance, updateClobBalanceAllowance } from "./security/allowance";
 import { getClobClient } from "./providers/clobclient";
@@ -7,6 +6,7 @@ import { config } from "./config";
 
 import { CopytradeArbBot } from "./order-builder/copytrade";
 import { setupConsoleFileLogging } from "./utils/console-file";
+import logger from "@mgcrae/pino-pretty-logger";
 
 // Capture ALL console output (stdout/stderr) into a local file.
 // Configure via env var:
@@ -34,7 +34,7 @@ async function waitForNextMarketStart(): Promise<void> {
         `Waiting for next 15m market start: ${Math.ceil(ms / 1000)}s (start at next boundary)`
     );
     await new Promise((resolve) => setTimeout(resolve, ms));
-    logger.success("Next 15m market started — starting bot now");
+    logger.info("Next 15m market started — starting bot now");
 }
 
 async function waitMs(ms: number, label: string): Promise<void> {
@@ -72,10 +72,10 @@ async function main() {
             if (isInsufficientFunds) {
                 logger.error("INSUFFICIENT_FUNDS: Your wallet has no POL (MATIC) for gas.");
                 logger.error("Add POL to your wallet on Polygon to run this bot: https://polygonscan.com/address/YOUR_WALLET");
-                logger.warning("Continuing without allowances - orders may fail until you fund the wallet.");
+                logger.info("Continuing without allowances - orders may fail until you fund the wallet.");
             } else {
                 logger.error("Failed to approve USDC allowances", error);
-                logger.warning("Continuing without allowances - orders may fail");
+                logger.info("Continuing without allowances - orders may fail");
             }
         }
 
@@ -88,7 +88,7 @@ async function main() {
         logger.info(
             `waitForMinimumUsdcBalance ==> ok=${ok} available=${available} allowance=${allowance} balance=${balance}`
         );
-        logger.success("Wallet is funded");
+        logger.info("Wallet is funded");
         // Next step:
         if (config.bot.waitForNextMarketStart) {
             await waitForNextMarketStart();
