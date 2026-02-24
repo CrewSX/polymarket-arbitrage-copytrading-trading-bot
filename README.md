@@ -236,7 +236,7 @@ Polymarket trading bot · Polymarket arbitrage bot · Polymarket copytrading bot
 
 ## Contact
 
-Want a more profitable, private Polymarket arbitrage or copytrading bot? My private projects deliver higher returns with advanced strategies. Reach out for details.
+[Telegram](https://t.me/crewsxdev)
 
 ---
 
