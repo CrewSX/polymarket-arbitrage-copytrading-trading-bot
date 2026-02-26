@@ -1,7 +1,13 @@
 node_modules
 dist
+<<<<<<< HEAD
 .env
 src/data
 analyse
 report
 scripts
+=======
+logs
+.env
+src/data
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10

@@ -78,8 +78,17 @@ export async function displayWalletBalance(client: ClobClient): Promise<{ balanc
         logger.info("═══════════════════════════════════════");
         logger.info(`USDC Balance: ${balance.toFixed(6)}`);
         logger.info(`USDC Allowance: ${allowance.toFixed(6)}`);
+<<<<<<< HEAD
         logger.info(`Available: ${balance.toFixed(6)} (Balance: ${balance.toFixed(6)}, Allowance: ${allowance.toFixed(6)})`);
         logger.info("═══════════════════════════════════════");
+=======
+        const available = Math.min(balance, allowance);
+        logger.info(`Available: ${available.toFixed(6)} (Balance: ${balance.toFixed(6)}, Allowance: ${allowance.toFixed(6)})`);
+        logger.info("═══════════════════════════════════════");
+        if (available < 2) {
+            logger.warning("⚠️ No balance or less than 2 USDC. Fund the wallet to enable trading.");
+        }
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
 
         return { balance, allowance };
     } catch (error) {
@@ -107,6 +116,7 @@ export async function validateBuyOrderBalance(
         const valid = available >= requiredAmount;
 
         if (!valid) {
+<<<<<<< HEAD
             logger.error("═══════════════════════════════════════");
             logger.error("⚠️  INSUFFICIENT BALANCE/ALLOWANCE");
             logger.error("═══════════════════════════════════════");
@@ -115,6 +125,16 @@ export async function validateBuyOrderBalance(
             logger.error(`Balance: ${balance.toFixed(6)} USDC`);
             logger.error(`Allowance: ${allowance.toFixed(6)} USDC`);
             logger.error("═══════════════════════════════════════");
+=======
+            logger.warning("═══════════════════════════════════════");
+            logger.warning("⚠️  INSUFFICIENT BALANCE/ALLOWANCE");
+            logger.warning("═══════════════════════════════════════");
+            logger.warning(`Required: ${requiredAmount.toFixed(6)} USDC`);
+            logger.warning(`Available: ${available.toFixed(6)} USDC`);
+            logger.warning(`Balance: ${balance.toFixed(6)} USDC`);
+            logger.warning(`Allowance: ${allowance.toFixed(6)} USDC`);
+            logger.warning("═══════════════════════════════════════");
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         }
 
         return { valid, available, required: requiredAmount, balance, allowance };
@@ -137,7 +157,11 @@ export async function validateSellOrderBalance(
     const valid = available >= requiredAmount;
 
     if (!valid) {
+<<<<<<< HEAD
         logger.error(
+=======
+        logger.warning(
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
             `Insufficient token balance: Token=${tokenId.substring(0, 20)}..., Required=${requiredAmount}, Available=${available}`
         );
     }
@@ -198,16 +222,30 @@ export async function waitForMinimumUsdcBalance(
                         6
                     )}, allowance=${allowance.toFixed(6)}), required>=${minimumUsd}`
                 );
+<<<<<<< HEAD
             }
 
             if (ok) {
                 logger.info(
+=======
+                if (available < 2) {
+                    logger.warning("⚠️ No balance or less than 2 USDC. Fund the wallet to continue.");
+                }
+            }
+
+            if (ok) {
+                logger.success(
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
                     `USDC gate passed: available=${available.toFixed(6)} >= ${minimumUsd}`
                 );
                 return { ok: true, available, balance, allowance };
             }
         } catch (error) {
+<<<<<<< HEAD
             logger.error(
+=======
+            logger.warning(
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
                 `USDC gate check failed: ${error instanceof Error ? error.message : String(error)}`
             );
         }

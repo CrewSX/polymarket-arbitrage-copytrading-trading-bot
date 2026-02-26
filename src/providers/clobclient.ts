@@ -1,15 +1,23 @@
+<<<<<<< HEAD
+=======
+import { resolve } from "path";
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
 import { readFileSync, existsSync } from "fs";
 import { Chain, ClobClient } from "@polymarket/clob-client";
 import type { ApiKeyCreds } from "@polymarket/clob-client";
 import { Wallet } from "@ethersproject/wallet";
 import { config } from "../config";
+<<<<<<< HEAD
 import { ensureCredential, credentialPath } from "../security/createCredential";
+=======
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
 
 // Cache for ClobClient instance to avoid repeated initialization
 let cachedClient: ClobClient | null = null;
 let cachedConfig: { chainId: number; host: string } | null = null;
 
 /**
+<<<<<<< HEAD
  * Initialize ClobClient from credentials (cached singleton).
  * If credential file is missing, creates it automatically via createOrDeriveApiKey.
  */
@@ -24,6 +32,20 @@ export async function getClobClient(): Promise<ClobClient> {
     }
 
     const creds: ApiKeyCreds = JSON.parse(readFileSync(credentialPath(), "utf-8"));
+=======
+ * Initialize ClobClient from credentials (cached singleton)
+ * Prevents creating multiple ClobClient instances
+ */
+export async function getClobClient(): Promise<ClobClient> {
+    // Load credentials
+    const credentialPath = resolve(process.cwd(), "src/data/credential.json");
+    
+    if (!existsSync(credentialPath)) {
+        throw new Error("Credential file not found. Run createCredential() first.");
+    }
+
+    const creds: ApiKeyCreds = JSON.parse(readFileSync(credentialPath, "utf-8"));
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     
     const chainId = (config.chainId || Chain.POLYGON) as Chain;
     const host = config.clobApiUrl;
@@ -49,6 +71,7 @@ export async function getClobClient(): Promise<ClobClient> {
         passphrase: creds.passphrase,
     };
 
+<<<<<<< HEAD
     // Signature type: 0 = EOA (browser/MetaMask), 2 = proxy/smart wallet. Use EOA by default so
     // orders are signed as your wallet; only use 2 + funder when USE_PROXY_WALLET=true.
     const signatureType = config.useProxyWallet ? 2 : 0;
@@ -56,6 +79,10 @@ export async function getClobClient(): Promise<ClobClient> {
 
     // Create and cache client
     cachedClient = new ClobClient(host, chainId, wallet, apiKeyCreds, signatureType, funderAddress);
+=======
+    // Create and cache client
+    cachedClient = new ClobClient(host, chainId, wallet, apiKeyCreds);
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     cachedConfig = { chainId, host };
 
     return cachedClient;

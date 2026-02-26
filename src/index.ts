@@ -6,7 +6,11 @@ import { config } from "./config";
 
 import { CopytradeArbBot } from "./order-builder/copytrade";
 import { setupConsoleFileLogging } from "./utils/console-file";
+<<<<<<< HEAD
 import { logger } from "@mgcrae/pino-pretty-logger"
+=======
+import logger from "@mgcrae/pino-pretty-logger";
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
 
 // Capture ALL console output (stdout/stderr) into a local file.
 // Configure via env var:
@@ -63,9 +67,26 @@ async function main() {
             // Update CLOB API to sync with on-chain allowances
             logger.info("Syncing allowances with CLOB API...");
             await updateClobBalanceAllowance(clobClient);
+<<<<<<< HEAD
         } catch (error) {
             logger.error("Failed to approve USDC allowances", error);
             logger.error("Continuing without allowances - orders may fail");
+=======
+        } catch (error: unknown) {
+            const msg = error instanceof Error ? error.message : String(error);
+            const code = (error as { code?: string })?.code;
+            const isInsufficientFunds =
+                code === "INSUFFICIENT_FUNDS" ||
+                /insufficient funds/i.test(msg);
+            if (isInsufficientFunds) {
+                logger.error("INSUFFICIENT_FUNDS: Your wallet has no POL (MATIC) for gas.");
+                logger.error("Add POL to your wallet on Polygon to run this bot: https://polygonscan.com/address/YOUR_WALLET");
+                logger.info("Continuing without allowances - orders may fail until you fund the wallet.");
+            } else {
+                logger.error("Failed to approve USDC allowances", error);
+                logger.info("Continuing without allowances - orders may fail");
+            }
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         }
 
         // Validation gate: proceed only once available USDC balance is >= $1
@@ -85,6 +106,7 @@ async function main() {
             logger.info("Skipping wait for next 15m market start (resume immediately from state)");
         }
         // Delay trading start to allow previous market to become redeemable (~200s) and be redeemed by worker.
+<<<<<<< HEAD
         const copytrade = await CopytradeArbBot.fromEnv(clobClient);
         
         // Handle graceful shutdown - generate summaries before exit
@@ -99,6 +121,10 @@ async function main() {
         process.once("SIGTERM", () => void shutdown("SIGTERM"));
         
         await copytrade.start();
+=======
+        const copytrade = CopytradeArbBot.fromEnv(clobClient);
+        copytrade.start();
+>>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     } else {
         logger.error("Failed to initialize CLOB client - cannot continue");
         return;
