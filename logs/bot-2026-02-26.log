@@ -1,0 +1,185 @@
+
+
+
+
+
+===== LOG START 2026-02-26T08:32:26.197Z pid=3067920 =====
+
+
+
+
+[2026-02-26T08:32:26.197Z] ℹ️ INFO  Starting the bot...
+2026-02-26T08:32:26.231Z  INFO  wallet address 0x68E4d69299527aF9217c8671960E62BCfBed94a4
+[CLOB Client] request error {"status":400,"statusText":"Bad Request","data":{"error":"Could not create api key"},"config":{"transitional":{"silentJSONParsing":true,"forcedJSONParsing":true,"clarifyTimeoutError":false},"transformRequest":[null],"transformResponse":[null],"timeout":0,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1,"maxBodyLength":-1,"env":{},"headers":{"Accept":"*/*","Content-Type":"application/json","POLY_ADDRESS":"0x68E4d69299527aF9217c8671960E62BCfBed94a4","POLY_SIGNATURE":"0xe74f011f9e3ff05c8dd6a99e342b677b46299efa53b8473eedd0048908768a10380eaf30ab369573309537ac8c029d3a721b348821795b212e6b76a700511be11c","POLY_TIMESTAMP":"1772094746","POLY_NONCE":"0","User-Agent":"@polymarket/clob-client","Connection":"keep-alive"},"method":"post","url":"https://clob.polymarket.com/auth/api-key","params":{}}}
+2026-02-26T08:32:26.466Z  INFO  Credential created successfully
+[2026-02-26T08:32:26.466Z] ℹ️ INFO  Credentials ready
+[2026-02-26T08:32:26.477Z] ℹ️ INFO  Approving USDC allowances to Polymarket contracts...
+2026-02-26T08:32:27.914Z  INFO  Approving USDC allowances for address: 0x68E4d69299527aF9217c8671960E62BCfBed94a4, chainId: 137
+2026-02-26T08:32:27.914Z  INFO  RPC: https://rpc-mainnet.matic.quiknode.pro
+2026-02-26T08:32:27.914Z  INFO  USDC Contract: 0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174
+2026-02-26T08:32:27.914Z  INFO  ConditionalTokens Contract: 0x4D97DCd97eC945f40cF65F87097ACe5EA0476045
+2026-02-26T08:32:27.914Z  INFO  Exchange Contract: 0x4bFb41d5B3570DeFd03C39a9A4D8dE6Bd8B8982E
+2026-02-26T08:32:28.439Z  INFO  Current CTF allowance: 0, setting to MaxUint256...
+[2026-02-26T08:32:30.536Z] ❌ ERROR Failed to approve USDC allowances Error: insufficient funds for intrinsic transaction cost [ See: https://links.ethers.org/v5-errors-INSUFFICIENT_FUNDS ] (error={"reason":"processing response error","code":"SERVER_ERROR","body":"{\"jsonrpc\":\"2.0\",\"id\":56,\"error\":{\"code\":-32000,\"message\":\"insufficient funds for gas * price + value: balance 0, tx cost 37732349608800000, overshot 37732349608800000\"}}\n","error":{"code":-32000},"requestBody":"{\"method\":\"eth_sendRawTransaction\",\"params\":[\"0x02f8b3818901852bed1dd14c852bed1dd14c83030d40942791bca1f2de4661ed88a30c99a7a9449aa8417480b844095ea7b30000000000000000000000004d97dcd97ec945f40cf65f87097ace5ea0476045ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc001a02662882c04c875be05189b8b68666ba067da3ff657c91af20d727caf0a6a9a04a04cad02ea185c11949950004afdcae0f2b67f4b15c2c78be00d1cd3bb3d78d869\"],\"id\":56,\"jsonrpc\":\"2.0\"}","requestMethod":"POST","url":"https://rpc-mainnet.matic.quiknode.pro"}, method="sendTransaction", transaction="0x02f8b3818901852bed1dd14c852bed1dd14c83030d40942791bca1f2de4661ed88a30c99a7a9449aa8417480b844095ea7b30000000000000000000000004d97dcd97ec945f40cf65f87097ace5ea0476045ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc001a02662882c04c875be05189b8b68666ba067da3ff657c91af20d727caf0a6a9a04a04cad02ea185c11949950004afdcae0f2b67f4b15c2c78be00d1cd3bb3d78d869", code=INSUFFICIENT_FUNDS, version=providers/5.8.0)
+    at Logger.makeError (/home/dev/workshop/poly-git/node_modules/@ethersproject/logger/src.ts/index.ts:269:28)
+    at Logger.throwError (/home/dev/workshop/poly-git/node_modules/@ethersproject/logger/src.ts/index.ts:281:20)
+    at checkError (/home/dev/workshop/poly-git/node_modules/@ethersproject/providers/src.ts/json-rpc-provider.ts:98:16)
+    at JsonRpcProvider.<anonymous> (/home/dev/workshop/poly-git/node_modules/@ethersproject/providers/src.ts/json-rpc-provider.ts:642:20)
+    at step (/home/dev/workshop/poly-git/node_modules/@ethersproject/providers/lib/json-rpc-provider.js:48:23)
+    at Object.throw (/home/dev/workshop/poly-git/node_modules/@ethersproject/providers/lib/json-rpc-provider.js:29:53)
+    at rejected (/home/dev/workshop/poly-git/node_modules/@ethersproject/providers/lib/json-rpc-provider.js:21:65)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  reason: 'insufficient funds for intrinsic transaction cost',
+  code: 'INSUFFICIENT_FUNDS',
+  error: Error: processing response error (body="{\"jsonrpc\":\"2.0\",\"id\":56,\"error\":{\"code\":-32000,\"message\":\"insufficient funds for gas * price + value: balance 0, tx cost 37732349608800000, overshot 37732349608800000\"}}\n", error={"code":-32000}, requestBody="{\"method\":\"eth_sendRawTransaction\",\"params\":[\"0x02f8b3818901852bed1dd14c852bed1dd14c83030d40942791bca1f2de4661ed88a30c99a7a9449aa8417480b844095ea7b30000000000000000000000004d97dcd97ec945f40cf65f87097ace5ea0476045ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc001a02662882c04c875be05189b8b68666ba067da3ff657c91af20d727caf0a6a9a04a04cad02ea185c11949950004afdcae0f2b67f4b15c2c78be00d1cd3bb3d78d869\"],\"id\":56,\"jsonrpc\":\"2.0\"}", requestMethod="POST", url="https://rpc-mainnet.matic.quiknode.pro", code=SERVER_ERROR, version=web/5.8.0)
+      at Logger.makeError (/home/dev/workshop/poly-git/node_modules/@ethersproject/logger/src.ts/index.ts:269:28)
+      at Logger.throwError (/home/dev/workshop/poly-git/node_modules/@ethersproject/logger/src.ts/index.ts:281:20)
+      at /home/dev/workshop/poly-git/node_modules/@ethersproject/web/src.ts/index.ts:341:28
+      at step (/home/dev/workshop/poly-git/node_modules/@ethersproject/web/lib/index.js:33:23)
+      at Object.next (/home/dev/workshop/poly-git/node_modules/@ethersproject/web/lib/index.js:14:53)
+      at fulfilled (/home/dev/workshop/poly-git/node_modules/@ethersproject/web/lib/index.js:5:58)
+      at processTicksAndRejections (node:internal/process/task_queues:105:5) {
+    reason: 'processing response error',
+    code: 'SERVER_ERROR',
+    body: '{"jsonrpc":"2.0","id":56,"error":{"code":-32000,"message":"insufficient funds for gas * price + value: balance 0, tx cost 37732349608800000, overshot 37732349608800000"}}\n',
+    error: Error: insufficient funds for gas * price + value: balance 0, tx cost 37732349608800000, overshot 37732349608800000
+        at getResult (/home/dev/workshop/poly-git/node_modules/@ethersproject/providers/src.ts/json-rpc-provider.ts:142:28)
+        at processJsonFunc (/home/dev/workshop/poly-git/node_modules/@ethersproject/web/src.ts/index.ts:383:22)
+        at /home/dev/workshop/poly-git/node_modules/@ethersproject/web/src.ts/index.ts:320:42
+        at step (/home/dev/workshop/poly-git/node_modules/@ethersproject/web/lib/index.js:33:23)
+        at Object.next (/home/dev/workshop/poly-git/node_modules/@ethersproject/web/lib/index.js:14:53)
+        at fulfilled (/home/dev/workshop/poly-git/node_modules/@ethersproject/web/lib/index.js:5:58)
+        at processTicksAndRejections (node:internal/process/task_queues:105:5) {
+      code: -32000,
+      data: undefined
+    },
+    requestBody: '{"method":"eth_sendRawTransaction","params":["0x02f8b3818901852bed1dd14c852bed1dd14c83030d40942791bca1f2de4661ed88a30c99a7a9449aa8417480b844095ea7b30000000000000000000000004d97dcd97ec945f40cf65f87097ace5ea0476045ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc001a02662882c04c875be05189b8b68666ba067da3ff657c91af20d727caf0a6a9a04a04cad02ea185c11949950004afdcae0f2b67f4b15c2c78be00d1cd3bb3d78d869"],"id":56,"jsonrpc":"2.0"}',
+    requestMethod: 'POST',
+    url: 'https://rpc-mainnet.matic.quiknode.pro'
+  },
+  method: 'sendTransaction',
+  transaction: {
+    type: 2,
+    chainId: 137,
+    nonce: 1,
+    maxPriorityFeePerGas: BigNumber { _hex: '0x2bed1dd14c', _isBigNumber: true },
+    maxFeePerGas: BigNumber { _hex: '0x2bed1dd14c', _isBigNumber: true },
+    gasPrice: null,
+    gasLimit: BigNumber { _hex: '0x030d40', _isBigNumber: true },
+    to: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+    value: BigNumber { _hex: '0x00', _isBigNumber: true },
+    data: '0x095ea7b30000000000000000000000004d97dcd97ec945f40cf65f87097ace5ea0476045ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+    accessList: [],
+    hash: '0xb9ab0c0f4bf957ca49f725f5630848da43a1fe0d664ff93438c903c29959032a',
+    v: 1,
+    r: '0x2662882c04c875be05189b8b68666ba067da3ff657c91af20d727caf0a6a9a04',
+    s: '0x4cad02ea185c11949950004afdcae0f2b67f4b15c2c78be00d1cd3bb3d78d869',
+    from: '0x68E4d69299527aF9217c8671960E62BCfBed94a4',
+    confirmations: 0
+  },
+  transactionHash: '0xb9ab0c0f4bf957ca49f725f5630848da43a1fe0d664ff93438c903c29959032a'
+}
+[2026-02-26T08:32:30.549Z] ❌ ERROR Continuing without allowances - orders may fail
+2026-02-26T08:32:30.794Z  INFO  ═══════════════════════════════════════
+2026-02-26T08:32:30.794Z  INFO  💰 WALLET BALANCE & ALLOWANCE
+2026-02-26T08:32:30.794Z  INFO  ═══════════════════════════════════════
+2026-02-26T08:32:30.794Z  INFO  USDC Balance: 2.811820
+2026-02-26T08:32:30.794Z  INFO  USDC Allowance: 0.000000
+2026-02-26T08:32:30.794Z  INFO  Available: 2.811820 (Balance: 2.811820, Allowance: 0.000000)
+2026-02-26T08:32:30.794Z  INFO  ═══════════════════════════════════════
+2026-02-26T08:32:30.794Z  INFO  USDC gate: available=2.811820 (balance=2.811820, allowance=0.000000), required>=1
+2026-02-26T08:32:30.795Z  INFO  USDC gate passed: available=2.811820 >= 1
+[2026-02-26T08:32:30.795Z] ℹ️ INFO  waitForMinimumUsdcBalance ==> ok=true available=2.81182 allowance=0 balance=2.81182
+[2026-02-26T08:32:30.795Z] ℹ️ INFO  Wallet is funded
+[2026-02-26T08:32:30.795Z] ℹ️ INFO  Skipping wait for next 15m market start (resume immediately from state)
+2026-02-26T08:32:30.795Z  INFO  Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2026-02-26T08:32:30.939Z  INFO  WebSocket connected (market channel)
+2026-02-26T08:32:30.939Z  INFO  Subscribed to 0 token(s) for best_bid_ask updates (custom_feature_enabled: true)
+2026-02-26T08:32:30.939Z  INFO  WebSocket orderbook initialized
+2026-02-26T08:32:30.940Z  INFO  Starting CopytradeArbBot for markets: btc
+2026-02-26T08:32:30.940Z  INFO  Initializing market btc with slug btc-updown-15m-1772094600
+2026-02-26T08:32:31.036Z  INFO  Subscribed to 2 new token(s) (custom_feature_enabled: true)
+2026-02-26T08:32:31.130Z  INFO  📊 Up Ask ==========> 0.5400
+2026-02-26T08:32:31.130Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:31.277Z  INFO  📊 Up Ask ==========> 0.5400
+2026-02-26T08:32:31.277Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:31.424Z  INFO  📊 Up Ask ==========> 0.5400
+2026-02-26T08:32:31.424Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:31.540Z  INFO  📊 Up Ask ==========> 0.5400
+2026-02-26T08:32:31.540Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:31.545Z  INFO  📊 Up Ask ==========> 0.5400
+2026-02-26T08:32:31.546Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:32.184Z  INFO  📊 Up Ask ==========> 0.5400
+2026-02-26T08:32:32.184Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:32.412Z  INFO  📊 Up Ask ==========> 0.5400
+2026-02-26T08:32:32.412Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:34.850Z  INFO  📊 Up Ask ==========> 0.5400
+2026-02-26T08:32:34.851Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:34.856Z  INFO  📊 Up Ask ==========> 0.5500
+2026-02-26T08:32:34.857Z  INFO  📊 Down Ask 0.4700
+2026-02-26T08:32:34.860Z  INFO  📊 Up Ask ==========> 0.5500
+2026-02-26T08:32:34.860Z  INFO  📊 Down Ask 0.4600
+2026-02-26T08:32:34.986Z  INFO  📊 Up Ask ==========> 0.5500
+2026-02-26T08:32:34.986Z  INFO  📊 Down Ask 0.4600
+2026-02-26T08:32:35.642Z  INFO  📊 Up Ask ==========> 0.5600
+2026-02-26T08:32:35.642Z  INFO  📊 Down Ask 0.4600
+2026-02-26T08:32:35.642Z  INFO  📊 Up Ask ==========> 0.5600
+2026-02-26T08:32:35.642Z  INFO  📊 Down Ask 0.4500
+2026-02-26T08:32:35.804Z  INFO  📊 Up Ask ==========> 0.5600
+2026-02-26T08:32:35.804Z  INFO  📊 Down Ask 0.4500
+2026-02-26T08:32:35.924Z  INFO  📊 Up Ask ==========> 0.5600
+2026-02-26T08:32:35.925Z  INFO  📊 Down Ask 0.4500
+2026-02-26T08:32:35.928Z  INFO  📊 Up Ask ==========> 0.5600
+2026-02-26T08:32:35.929Z  INFO  📊 Down Ask 0.4500
+2026-02-26T08:32:36.579Z  INFO  📊 Up Ask ==========> 0.5600
+2026-02-26T08:32:36.580Z  INFO  📊 Down Ask 0.4500
+2026-02-26T08:32:36.598Z  INFO  📊 Up Ask ==========> 0.5600
+2026-02-26T08:32:36.598Z  INFO  📊 Down Ask 0.4500
+2026-02-26T08:32:37.002Z  INFO  📊 Up Ask ==========> 0.5700
+2026-02-26T08:32:37.002Z  INFO  📊 Down Ask 0.4500
+2026-02-26T08:32:37.003Z  INFO  📊 Up Ask ==========> 0.5700
+2026-02-26T08:32:37.003Z  INFO  📊 Down Ask 0.4400
+2026-02-26T08:32:37.040Z  INFO  📊 Up Ask ==========> 0.5700
+2026-02-26T08:32:37.040Z  INFO  📊 Down Ask 0.4400
+2026-02-26T08:32:37.085Z  INFO  📊 Up Ask ==========> 0.5700
+2026-02-26T08:32:37.086Z  INFO  📊 Down Ask 0.4400
+2026-02-26T08:32:37.087Z  INFO  📊 Up Ask ==========> 0.5700
+2026-02-26T08:32:37.088Z  INFO  📊 Down Ask 0.4400
+2026-02-26T08:32:37.145Z  INFO  📊 Up Ask ==========> 0.5700
+2026-02-26T08:32:37.145Z  INFO  📊 Down Ask 0.4400
+2026-02-26T08:32:37.170Z  INFO  📊 Up Ask ==========> 0.5700
+2026-02-26T08:32:37.170Z  INFO  📊 Down Ask 0.4400
+2026-02-26T08:32:37.772Z  INFO  📊 Up Ask ==========> 0.5800
+2026-02-26T08:32:37.772Z  INFO  📊 Down Ask 0.4400
+2026-02-26T08:32:37.773Z  INFO  🔮 PREDICT [POLE]: 0.5635 (current: 0.5800) | Direction: UP | Confidence: 83.4% | Signal: BUY_UP | Momentum: 0.027 | Vol: 0.051 | Trend: 0.082
+2026-02-26T08:32:37.774Z  INFO  ⛔ LIMIT REACHED: UP count is 0/0 - skipping trade
+2026-02-26T08:32:37.831Z  INFO  📊 Up Ask ==========> 0.5800
+2026-02-26T08:32:37.831Z  INFO  📊 Down Ask 0.4300
+2026-02-26T08:32:38.129Z  INFO  📊 Up Ask ==========> 0.5800
+2026-02-26T08:32:38.129Z  INFO  📊 Down Ask 0.4300
+2026-02-26T08:32:38.297Z  INFO  📊 Up Ask ==========> 0.5800
+2026-02-26T08:32:38.297Z  INFO  📊 Down Ask 0.4300
+2026-02-26T08:32:38.458Z  INFO  📊 Up Ask ==========> 0.5800
+2026-02-26T08:32:38.458Z  INFO  📊 Down Ask 0.4300
+2026-02-26T08:32:38.625Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:38.625Z  INFO  📊 Down Ask 0.4300
+2026-02-26T08:32:38.625Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:38.625Z  INFO  📊 Down Ask 0.4300
+2026-02-26T08:32:38.646Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:38.646Z  INFO  📊 Down Ask 0.4300
+2026-02-26T08:32:38.647Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:38.647Z  INFO  📊 Down Ask 0.4200
+2026-02-26T08:32:38.856Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:38.856Z  INFO  📊 Down Ask 0.4200
+2026-02-26T08:32:38.906Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:38.907Z  INFO  📊 Down Ask 0.4200
+2026-02-26T08:32:39.029Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:39.029Z  INFO  📊 Down Ask 0.4200
+2026-02-26T08:32:39.103Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:39.103Z  INFO  📊 Down Ask 0.4200
+2026-02-26T08:32:39.126Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:39.127Z  INFO  📊 Down Ask 0.4200
+2026-02-26T08:32:40.157Z  INFO  📊 Up Ask ==========> 0.5900
+2026-02-26T08:32:40.157Z  INFO  📊 Down Ask 0.4200
+
+===== LOG END 2026-02-26T08:32:40.266Z pid=3067920 =====

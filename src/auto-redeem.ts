@@ -22,7 +22,7 @@ import {
     getUserTokenBalances,
     redeemAllWinningMarketsFromAPI 
 } from "./utils/redeem";
-import logger from "@mgcrae/pino-pretty-logger";
+import { logger } from "./utils/logger";
 import { getAllHoldings } from "./utils/holdings";
 import { config } from "./config";
 
@@ -68,7 +68,7 @@ async function main() {
                         if (winningHeld.length > 0) {
                             logger.info(`\nYou hold winning tokens! (IndexSets: ${winningHeld.join(", ")})`);
                         } else {
-                            logger.info("\n⚠️  You don't hold any winning tokens for this market.");
+                            logger.error("\n⚠️  You don't hold any winning tokens for this market.");
                         }
                     }
                 }
@@ -93,7 +93,7 @@ async function main() {
                 logger.info(`  bun src/auto-redeem.ts --check ${conditionId} --redeem`);
             }
         } else {
-            logger.info(`❌ Market is NOT resolved`);
+            logger.error(`❌ Market is NOT resolved`);
             logger.info(`Reason: ${reason}`);
         }
         return;
@@ -136,7 +136,7 @@ async function main() {
         } else {
             logger.info(`Successfully redeemed: ${result.redeemed} market(s)`);
             if (result.failed > 0) {
-                logger.info(`Failed: ${result.failed} market(s)`);
+                logger.error(`Failed: ${result.failed} market(s)`);
             }
         }
         
@@ -170,7 +170,7 @@ async function main() {
     const marketCount = Object.keys(holdings).length;
     
     if (marketCount === 0) {
-        logger.info("No holdings found in token-holding.json. Nothing to redeem.");
+        logger.error("No holdings found in token-holding.json. Nothing to redeem.");
         logger.info("\nOptions:");
         logger.info("  1. Holdings are tracked automatically when you place orders");
         logger.info("  2. Use --api flag to fetch all markets from Polymarket API instead");
@@ -199,7 +199,7 @@ async function main() {
     } else {
         logger.info(`Successfully redeemed: ${result.redeemed} market(s)`);
         if (result.failed > 0) {
-            logger.info(`Failed: ${result.failed} market(s)`);
+            logger.error(`Failed: ${result.failed} market(s)`);
         }
     }
     

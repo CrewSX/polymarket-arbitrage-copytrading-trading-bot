@@ -76,7 +76,7 @@ export function removeHoldings(marketId: string, tokenId: string, amount: number
     const holdings = loadHoldings();
     
     if (!holdings[marketId] || !holdings[marketId][tokenId]) {
-        logger.warning(`No holdings found for ${marketId} -> ${tokenId}`);
+        logger.error(`No holdings found for ${marketId} -> ${tokenId}`);
         return;
     }
     
@@ -122,7 +122,7 @@ export function clearMarketHoldings(marketId: string): void {
         saveHoldings(holdings);
         logger.info(`Cleared holdings for market: ${marketId}`);
     } else {
-        logger.warning(`No holdings found for market: ${marketId}`);
+        logger.error(`No holdings found for market: ${marketId}`);
     }
 }
 
