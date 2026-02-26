@@ -104,7 +104,7 @@ export function setupConsoleFileLogging(options: SetupOptions): void {
         stream = openStream(currentPath);
     } catch (e) {
         // If file logging can't start, do nothing (avoid crashing bot).
-        logger.warning(
+        logger.error(
             `Failed to set up file logging at ${currentPath}: ${e instanceof Error ? e.message : String(e)}`
         );
         return;

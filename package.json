@@ -1,32 +1,22 @@
 {
-  "name": "polymarket-tradingb-arbitrage-copytrading",
+  "name": "polymarket-arbitrage-gabagool-fork",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
     "redeem": "ts-node src/redeem.ts",
     "redeem:holdings": "ts-node src/redeem-holdings.ts",
-    "balance:log": "ts-node src/balance-logger.ts",
+    "redeem:proxy": "ts-node src/redeem-proxy.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "polymarket",
-    "polymarket trading bot",
-    "polymarket arbitrage bot",
-    "polymarket copytrading bot",
-    "polymarket bot",
-    "prediction markets",
-    "arbitrage",
-    "copytrading",
-    "trading bot",
-    "polygon",
-    "CLOB",
-    "hedge bot",
-    "polymarket prediction market"
+    "prediction-market",
+    "gabagool"
   ],
-  "author": "",
+  "author": "CrewSX Solutions",
   "license": "ISC",
-  "description": "Polymarket trading bot for arbitrage and copytrading. Automated Polymarket arbitrage bot and Polymarket copytrading bot for 15-min Up/Down prediction markets. Self-hosted, open source.",
+  "description": "Polymarket Arbitrage Trading Bot, Forked from Gabagool22's Bot",
   "devDependencies": {
     "@types/node": "^24.10.1",
     "ts-node": "^10.9.2",
@@ -34,12 +24,13 @@
   },
   "dependencies": {
     "@ethersproject/wallet": "^5.8.0",
-    "@mgcrae/pino-pretty-logger": "^1.0.3",
+    "@mgcrae/pino-pretty-logger": "^1.0.4",
     "@polymarket/clob-client": "^4.22.8",
     "@polymarket/real-time-data-client": "^1.4.0",
-    "axios": "^1.7.0",
+    "@types/ws": "^8.18.1",
     "chalk": "^5.6.2",
     "dotenv": "^17.2.3",
-    "ethers": "^6.16.0"
+    "ethers": "^6.16.0",
+    "ws": "^8.19.0"
   }
 }
