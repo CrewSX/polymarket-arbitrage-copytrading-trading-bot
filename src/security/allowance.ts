@@ -116,11 +116,7 @@ export async function approveUSDCAllowance(): Promise<void> {
             gasLimit: 200_000,
         };
     } catch (error) {
-<<<<<<< HEAD
         logger.error("Could not fetch gas price, using fallback");
-=======
-        logger.warning("Could not fetch gas price, using fallback");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         gasOptions = {
             gasPrice: parseUnits("100", "gwei"),
             gasLimit: 200_000,
@@ -134,11 +130,7 @@ export async function approveUSDCAllowance(): Promise<void> {
         const tx = await usdcContract.approve(contractConfig.conditionalTokens, MaxUint256, gasOptions);
         logger.info(`Transaction hash: ${tx.hash}`);
         await tx.wait();
-<<<<<<< HEAD
         logger.info("✅ USDC approved for ConditionalTokens contract");
-=======
-        logger.success("✅ USDC approved for ConditionalTokens contract");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     } else {
         logger.info("✅ USDC already approved for ConditionalTokens contract (MaxUint256)");
     }
@@ -150,11 +142,7 @@ export async function approveUSDCAllowance(): Promise<void> {
         const tx = await usdcContract.approve(contractConfig.exchange, MaxUint256, gasOptions);
         logger.info(`Transaction hash: ${tx.hash}`);
         await tx.wait();
-<<<<<<< HEAD
         logger.info("✅ USDC approved for Exchange contract");
-=======
-        logger.success("✅ USDC approved for Exchange contract");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     } else {
         logger.info("✅ USDC already approved for Exchange contract (MaxUint256)");
     }
@@ -168,11 +156,7 @@ export async function approveUSDCAllowance(): Promise<void> {
         const tx = await ctfContract.setApprovalForAll(contractConfig.exchange, true, gasOptions);
         logger.info(`Transaction hash: ${tx.hash}`);
         await tx.wait();
-<<<<<<< HEAD
         logger.info("✅ ConditionalTokens approved for Exchange contract");
-=======
-        logger.success("✅ ConditionalTokens approved for Exchange contract");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     } else {
         logger.info("✅ ConditionalTokens already approved for Exchange contract");
     }
@@ -187,11 +171,7 @@ export async function approveUSDCAllowance(): Promise<void> {
             const tx = await usdcContract.approve(contractConfig.negRiskAdapter, MaxUint256, gasOptions);
             logger.info(`Transaction hash: ${tx.hash}`);
             await tx.wait();
-<<<<<<< HEAD
             logger.info("✅ USDC approved for NegRiskAdapter");
-=======
-            logger.success("✅ USDC approved for NegRiskAdapter");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         }
 
         // Approve USDC for NegRiskExchange
@@ -201,11 +181,7 @@ export async function approveUSDCAllowance(): Promise<void> {
             const tx = await usdcContract.approve(contractConfig.negRiskExchange, MaxUint256, gasOptions);
             logger.info(`Transaction hash: ${tx.hash}`);
             await tx.wait();
-<<<<<<< HEAD
             logger.info("✅ USDC approved for NegRiskExchange");
-=======
-            logger.success("✅ USDC approved for NegRiskExchange");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         }
 
         // Approve ConditionalTokens for NegRiskExchange
@@ -215,11 +191,7 @@ export async function approveUSDCAllowance(): Promise<void> {
             const tx = await ctfContract.setApprovalForAll(contractConfig.negRiskExchange, true, gasOptions);
             logger.info(`Transaction hash: ${tx.hash}`);
             await tx.wait();
-<<<<<<< HEAD
             logger.info("✅ ConditionalTokens approved for NegRiskExchange");
-=======
-            logger.success("✅ ConditionalTokens approved for NegRiskExchange");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         }
 
         // Approve ConditionalTokens for NegRiskAdapter
@@ -229,19 +201,11 @@ export async function approveUSDCAllowance(): Promise<void> {
             const tx = await ctfContract.setApprovalForAll(contractConfig.negRiskAdapter, true, gasOptions);
             logger.info(`Transaction hash: ${tx.hash}`);
             await tx.wait();
-<<<<<<< HEAD
             logger.info("✅ ConditionalTokens approved for NegRiskAdapter");
         }
     }
 
     logger.info("All allowances approved successfully!");
-=======
-            logger.success("✅ ConditionalTokens approved for NegRiskAdapter");
-        }
-    }
-
-    logger.success("All allowances approved successfully!");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
 }
 
 /**
@@ -252,11 +216,7 @@ export async function updateClobBalanceAllowance(client: ClobClient): Promise<vo
     try {
         logger.info("Updating CLOB API balance allowance for USDC...");
         await client.updateBalanceAllowance({ asset_type: AssetType.COLLATERAL });
-<<<<<<< HEAD
         logger.info("✅ CLOB API balance allowance updated for USDC");
-=======
-        logger.success("✅ CLOB API balance allowance updated for USDC");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     } catch (error) {
         logger.error(`Failed to update CLOB balance allowance: ${error instanceof Error ? error.message : String(error)}`);
         throw error;
@@ -305,11 +265,7 @@ export async function approveTokensAfterBuy(): Promise<void> {
         const tx = await ctfContract.setApprovalForAll(contractConfig.exchange, true, gasOptions);
         logger.info(`Transaction hash: ${tx.hash}`);
         await tx.wait();
-<<<<<<< HEAD
         logger.info("✅ ConditionalTokens approved for Exchange");
-=======
-        logger.success("✅ ConditionalTokens approved for Exchange");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     }
 
     // If negRisk is enabled, also check negRisk contracts
@@ -321,11 +277,7 @@ export async function approveTokensAfterBuy(): Promise<void> {
             const tx = await ctfContract.setApprovalForAll(contractConfig.negRiskExchange, true, gasOptions);
             logger.info(`Transaction hash: ${tx.hash}`);
             await tx.wait();
-<<<<<<< HEAD
             logger.info("✅ ConditionalTokens approved for NegRiskExchange");
-=======
-            logger.success("✅ ConditionalTokens approved for NegRiskExchange");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         }
     }
 }

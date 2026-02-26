@@ -29,11 +29,7 @@ function appendPnlLogLine(line: string): void {
         fs.mkdirSync(path.dirname(p), { recursive: true });
         fs.appendFileSync(p, line.endsWith("\n") ? line : `${line}\n`, "utf8");
     } catch (e) {
-<<<<<<< HEAD
         logger.error(`Failed to append pnl.log: ${e instanceof Error ? e.message : String(e)}`);
-=======
-        logger.warning(`Failed to append pnl.log: ${e instanceof Error ? e.message : String(e)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     }
 }
 
@@ -63,11 +59,7 @@ async function main() {
         const holdings = getAllHoldings();
         
         if (Object.keys(holdings).length === 0) {
-<<<<<<< HEAD
             logger.error("No holdings found.");
-=======
-            logger.warning("No holdings found.");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
             logger.info("\nUsage:");
             logger.info("  bun src/redeem.ts <conditionId> [indexSets...]");
             logger.info("  bun src/redeem.ts 0x5f65177b394277fd294cd75650044e32ba009a95022d88a0c1d565897d72f8f1 1 2");
@@ -103,11 +95,7 @@ async function main() {
             logger.info(`  Token ${tokenId.substring(0, 20)}...: ${amount}`);
         }
     } else {
-<<<<<<< HEAD
         logger.error(`No holdings found for market ${conditionId}`);
-=======
-        logger.warning(`No holdings found for market ${conditionId}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     }
 
     try {
@@ -117,11 +105,7 @@ async function main() {
         // Use the simple redeemMarket function
         const receipt = await redeemMarket(conditionId);
 
-<<<<<<< HEAD
         logger.info("\n✅ Successfully redeemed positions!");
-=======
-        logger.success("\n✅ Successfully redeemed positions!");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         logger.info(`Transaction hash: ${receipt.transactionHash}`);
         logger.info(`Block number: ${receipt.blockNumber}`);
         logger.info(`Gas used: ${receipt.gasUsed.toString()}`);
@@ -141,21 +125,13 @@ async function main() {
                 appendPnlLogLine(logLine);
                 logger.info(`✅ Logged balance to pnl.log`);
             } catch (balanceError) {
-<<<<<<< HEAD
                 logger.error(`Failed to get balance after redeem: ${balanceError instanceof Error ? balanceError.message : String(balanceError)}`);
-=======
-                logger.warning(`Failed to get balance after redeem: ${balanceError instanceof Error ? balanceError.message : String(balanceError)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
                 // Still log to pnl.log without balance
                 const logLine = `${new Date().toISOString()} slug=? market=? conditionId=${conditionId} pnl=? cost=? payout=? note=redeemed`;
                 appendPnlLogLine(logLine);
             }
         } catch (balanceLogError) {
-<<<<<<< HEAD
             logger.error(`Failed to log balance: ${balanceLogError instanceof Error ? balanceLogError.message : String(balanceLogError)}`);
-=======
-            logger.warning(`Failed to log balance: ${balanceLogError instanceof Error ? balanceLogError.message : String(balanceLogError)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         }
 
         // Automatically clear holdings after successful redemption
@@ -164,11 +140,7 @@ async function main() {
             clearMarketHoldings(conditionId);
             logger.info(`\n✅ Cleared holdings record for this market from token-holding.json`);
         } catch (clearError) {
-<<<<<<< HEAD
             logger.error(`Failed to clear holdings: ${clearError instanceof Error ? clearError.message : String(clearError)}`);
-=======
-            logger.warning(`Failed to clear holdings: ${clearError instanceof Error ? clearError.message : String(clearError)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
             // Don't fail if clearing holdings fails
         }
     } catch (error) {

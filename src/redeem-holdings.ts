@@ -76,11 +76,7 @@ function appendPnlLogLine(line: string): void {
         fs.mkdirSync(path.dirname(p), { recursive: true });
         fs.appendFileSync(p, line.endsWith("\n") ? line : `${line}\n`, "utf8");
     } catch (e) {
-<<<<<<< HEAD
         logger.error(`Failed to append pnl.log: ${e instanceof Error ? e.message : String(e)}`);
-=======
-        logger.warning(`Failed to append pnl.log: ${e instanceof Error ? e.message : String(e)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     }
 }
 
@@ -92,11 +88,7 @@ function ensurePnlLogExists(): void {
             fs.writeFileSync(p, "", "utf8");
         }
     } catch (e) {
-<<<<<<< HEAD
         logger.error(`Failed to ensure pnl.log exists: ${e instanceof Error ? e.message : String(e)}`);
-=======
-        logger.warning(`Failed to ensure pnl.log exists: ${e instanceof Error ? e.message : String(e)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     }
 }
 
@@ -108,11 +100,7 @@ function loadCopytradeStateFile(): CopytradeStateFile {
         if (!raw) return {};
         return JSON.parse(raw) as CopytradeStateFile;
     } catch (e) {
-<<<<<<< HEAD
         logger.error(`Failed to read copytrade-state.json for pnl: ${e instanceof Error ? e.message : String(e)}`);
-=======
-        logger.warning(`Failed to read copytrade-state.json for pnl: ${e instanceof Error ? e.message : String(e)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         return {};
     }
 }
@@ -206,11 +194,7 @@ function pruneCopytradeStateKeepNewest(keep: number): void {
         if (!raw) return;
         state = JSON.parse(raw) as CopytradeStateFile;
     } catch (e) {
-<<<<<<< HEAD
         logger.error(`Failed to read copytrade-state.json for pruning: ${e instanceof Error ? e.message : String(e)}`);
-=======
-        logger.warning(`Failed to read copytrade-state.json for pruning: ${e instanceof Error ? e.message : String(e)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         return;
     }
 
@@ -241,11 +225,7 @@ function pruneCopytradeStateKeepNewest(keep: number): void {
         fs.writeFileSync(p, JSON.stringify(pruned, null, 2));
         logger.info(`Pruned copytrade-state.json removed=${removed} kept=${Object.keys(pruned).length}`);
     } catch (e) {
-<<<<<<< HEAD
         logger.error(`Failed to write pruned copytrade-state.json: ${e instanceof Error ? e.message : String(e)}`);
-=======
-        logger.warning(`Failed to write pruned copytrade-state.json: ${e instanceof Error ? e.message : String(e)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     }
 }
 
@@ -253,11 +233,7 @@ async function main() {
     const args = process.argv.slice(2);
     const dryRun = args.includes("--dry-run");
     const loop = args.includes("--loop") || !args.includes("--once");
-<<<<<<< HEAD
     const intervalMs = Number(getArgValue(args, "--interval-ms") ?? "200000"); // 15m
-=======
-    const intervalMs = Number(getArgValue(args, "--interval-ms") ?? "900000"); // 15m
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
     const maxRetries = Number(getArgValue(args, "--max-retries") ?? "3");
     const initialDelayMs = Number(getArgValue(args, "--initial-delay-ms") ?? "200000"); // 200s
     const align = !(args.includes("--no-align"));
@@ -288,11 +264,7 @@ async function main() {
                     const wallet = new Wallet(privateKey);
                     walletAddress = wallet.address;
                 } catch (e) {
-<<<<<<< HEAD
                     logger.error(`Failed to get wallet address for balance logging: ${e instanceof Error ? e.message : String(e)}`);
-=======
-                    logger.warning(`Failed to get wallet address for balance logging: ${e instanceof Error ? e.message : String(e)}`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
                 }
 
                 for (const r of result.results) {
@@ -304,11 +276,7 @@ async function main() {
                                 try {
                                     balanceAfterRedeem = await getUsdcBalance(walletAddress);
                                 } catch (e) {
-<<<<<<< HEAD
                                     logger.error(
-=======
-                                    logger.warning(
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
                                         `Failed to get balance after redeem for conditionId=${r.conditionId}: ${
                                             e instanceof Error ? e.message : String(e)
                                         }`
@@ -318,11 +286,7 @@ async function main() {
                             await recordPnlForRedeemedCondition(r.conditionId, balanceAfterRedeem);
                             wroteAny = true;
                         } catch (e) {
-<<<<<<< HEAD
                             logger.error(
-=======
-                            logger.warning(
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
                                 `Failed to record pnl for conditionId=${r.conditionId}: ${
                                     e instanceof Error ? e.message : String(e)
                                 }`
@@ -343,11 +307,7 @@ async function main() {
             // In this case, remove the conditionId from token-holding.json to avoid repeated attempts.
             for (const r of result.results) {
                 if (r.isResolved && !r.redeemed && shouldDropHoldingsForError(r.error)) {
-<<<<<<< HEAD
                     logger.error(
-=======
-                    logger.warning(
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
                         `Dropping holdings for conditionId=${r.conditionId} (no winning tokens to redeem)`
                     );
                     try {

@@ -22,11 +22,7 @@ import {
     getUserTokenBalances,
     redeemAllWinningMarketsFromAPI 
 } from "./utils/redeem";
-<<<<<<< HEAD
 import { logger } from "./utils/logger";
-=======
-import logger from "@mgcrae/pino-pretty-logger";
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
 import { getAllHoldings } from "./utils/holdings";
 import { config } from "./config";
 
@@ -72,11 +68,7 @@ async function main() {
                         if (winningHeld.length > 0) {
                             logger.info(`\nYou hold winning tokens! (IndexSets: ${winningHeld.join(", ")})`);
                         } else {
-<<<<<<< HEAD
                             logger.error("\n⚠️  You don't hold any winning tokens for this market.");
-=======
-                            logger.info("\n⚠️  You don't hold any winning tokens for this market.");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
                         }
                     }
                 }
@@ -101,11 +93,7 @@ async function main() {
                 logger.info(`  bun src/auto-redeem.ts --check ${conditionId} --redeem`);
             }
         } else {
-<<<<<<< HEAD
             logger.error(`❌ Market is NOT resolved`);
-=======
-            logger.info(`❌ Market is NOT resolved`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
             logger.info(`Reason: ${reason}`);
         }
         return;
@@ -148,11 +136,7 @@ async function main() {
         } else {
             logger.info(`Successfully redeemed: ${result.redeemed} market(s)`);
             if (result.failed > 0) {
-<<<<<<< HEAD
                 logger.error(`Failed: ${result.failed} market(s)`);
-=======
-                logger.info(`Failed: ${result.failed} market(s)`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
             }
         }
         
@@ -186,11 +170,7 @@ async function main() {
     const marketCount = Object.keys(holdings).length;
     
     if (marketCount === 0) {
-<<<<<<< HEAD
         logger.error("No holdings found in token-holding.json. Nothing to redeem.");
-=======
-        logger.info("No holdings found in token-holding.json. Nothing to redeem.");
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         logger.info("\nOptions:");
         logger.info("  1. Holdings are tracked automatically when you place orders");
         logger.info("  2. Use --api flag to fetch all markets from Polymarket API instead");
@@ -219,11 +199,7 @@ async function main() {
     } else {
         logger.info(`Successfully redeemed: ${result.redeemed} market(s)`);
         if (result.failed > 0) {
-<<<<<<< HEAD
             logger.error(`Failed: ${result.failed} market(s)`);
-=======
-            logger.info(`Failed: ${result.failed} market(s)`);
->>>>>>> b06bc1d94962e66b91c3b33349e50f31e96fcb10
         }
     }
     

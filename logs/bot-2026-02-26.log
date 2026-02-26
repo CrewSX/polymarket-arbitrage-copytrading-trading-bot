@@ -183,3 +183,27 @@
 2026-02-26T08:32:40.157Z  INFO  📊 Down Ask 0.4200
 
 ===== LOG END 2026-02-26T08:32:40.266Z pid=3067920 =====
+
+
+
+
+
+===== LOG START 2026-02-26T09:17:58.931Z pid=3964458 =====
+
+
+
+
+[2026-02-26T09:17:58.931Z] ℹ️ INFO  Starting the bot...
+2026-02-26T09:17:58.962Z  INFO  wallet address 0x68E4d69299527aF9217c8671960E62BCfBed94a4
+[CLOB Client] request error {"status":400,"statusText":"Bad Request","data":{"error":"Could not create api key"},"config":{"transitional":{"silentJSONParsing":true,"forcedJSONParsing":true,"clarifyTimeoutError":false},"transformRequest":[null],"transformResponse":[null],"timeout":0,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1,"maxBodyLength":-1,"env":{},"headers":{"Accept":"*/*","Content-Type":"application/json","POLY_ADDRESS":"0x68E4d69299527aF9217c8671960E62BCfBed94a4","POLY_SIGNATURE":"0x5ec2c3ff8d448ff3601e80e63bb2defb41a3c926311c2f257d438dd78aaca02c20149e6401baac597c253f358069b170e2275e09ff789fa57a1f9ce1d42ac7f71b","POLY_TIMESTAMP":"1772097478","POLY_NONCE":"0","User-Agent":"@polymarket/clob-client","Connection":"keep-alive"},"method":"post","url":"https://clob.polymarket.com/auth/api-key","params":{}}}
+2026-02-26T09:17:59.197Z  INFO  Credential created successfully
+[2026-02-26T09:17:59.197Z] ℹ️ INFO  Credentials ready
+[2026-02-26T09:17:59.216Z] ℹ️ INFO  Approving USDC allowances to Polymarket contracts...
+2026-02-26T09:18:00.319Z  INFO  Approving USDC allowances for address: 0x68E4d69299527aF9217c8671960E62BCfBed94a4, chainId: 137
+2026-02-26T09:18:00.319Z  INFO  RPC: https://rpc-mainnet.matic.quiknode.pro
+2026-02-26T09:18:00.320Z  INFO  USDC Contract: 0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174
+2026-02-26T09:18:00.320Z  INFO  ConditionalTokens Contract: 0x4D97DCd97eC945f40cF65F87097ACe5EA0476045
+2026-02-26T09:18:00.320Z  INFO  Exchange Contract: 0x4bFb41d5B3570DeFd03C39a9A4D8dE6Bd8B8982E
+2026-02-26T09:18:01.048Z  INFO  Current CTF allowance: 0, setting to MaxUint256...
+
+===== LOG END 2026-02-26T09:18:01.438Z pid=3964458 =====
